@@ -10,6 +10,42 @@ import {
 import { API_BASE } from '../utils/api';
 import './PublicWebsite.css';
 
+const BRAND_MARK = '/assets/arte-mark.png';
+
+function BrandName({ className = '' }) {
+  return <span className={className}>Arte Analytics <span className="pw-brand-crm">CRM</span></span>;
+}
+const SOCIAL_LINKS = [
+  { name: 'Facebook', href: 'https://www.facebook.com/p/Arteanalytics-61558698398315/' },
+  { name: 'Instagram', href: 'https://www.instagram.com/arteanalytics/' },
+  { name: 'LinkedIn', href: 'https://www.linkedin.com/company/arte-analytics-solutions' },
+  { name: 'YouTube', href: 'https://www.youtube.com/@ArteAnalytics' },
+  { name: 'TikTok', href: 'https://www.tiktok.com/@arteanalytics' },
+  { name: 'Threads', href: 'https://www.threads.com/@arteanalytics?xmt=AQF0soms4fxd2ZLIwrbZ2hix83LpQqN7EP_kXb8s3WltgCY' },
+  { name: 'WhatsApp', href: 'https://wa.me/923360000283' },
+];
+
+// Exact 24 Ã— 24 glyph paths from Simple Icons (CC0).
+const SOCIAL_PATHS = {
+  Facebook: 'M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z',
+  Instagram: 'M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.789.306-1.459.717-2.126 1.384S.935 3.35.63 4.14C.333 4.905.131 5.775.072 7.053.012 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.558 2.913.306.788.717 1.459 1.384 2.126.667.666 1.336 1.079 2.126 1.384.766.296 1.636.499 2.913.558C8.333 23.988 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.262 2.913-.558.788-.306 1.459-.718 2.126-1.384.666-.667 1.079-1.335 1.384-2.126.296-.765.499-1.636.558-2.913.06-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.262-2.149-.558-2.913-.306-.789-.718-1.459-1.384-2.126C21.319 1.347 20.651.935 19.86.63c-.765-.297-1.636-.499-2.913-.558C15.667.012 15.26 0 12 0zm0 2.16c3.203 0 3.585.016 4.85.071 1.17.055 1.805.249 2.227.415.562.217.96.477 1.382.896.419.42.679.819.896 1.381.164.422.36 1.057.413 2.227.057 1.266.07 1.646.07 4.85s-.015 3.585-.074 4.85c-.061 1.17-.256 1.805-.421 2.227-.224.562-.479.96-.899 1.382-.419.419-.824.679-1.38.896-.42.164-1.065.36-2.235.413-1.274.057-1.649.07-4.859.07-3.211 0-3.586-.015-4.859-.074-1.171-.061-1.816-.256-2.236-.421-.569-.224-.96-.479-1.379-.899-.421-.419-.69-.824-.9-1.38-.165-.42-.359-1.065-.42-2.235-.045-1.26-.061-1.649-.061-4.844 0-3.196.016-3.586.061-4.861.061-1.17.255-1.814.42-2.234.21-.57.479-.96.9-1.381.419-.419.81-.689 1.379-.898.42-.166 1.051-.361 2.221-.421 1.275-.045 1.65-.06 4.859-.06l.045.03zm0 3.678c-3.405 0-6.162 2.76-6.162 6.162 0 3.405 2.76 6.162 6.162 6.162 3.405 0 6.162-2.76 6.162-6.162 0-3.405-2.76-6.162-6.162-6.162zM12 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm7.846-10.405c0 .795-.646 1.44-1.44 1.44-.795 0-1.44-.646-1.44-1.44 0-.794.646-1.439 1.44-1.439.793-.001 1.44.645 1.44 1.439z',
+  LinkedIn: 'M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z',
+  YouTube: 'M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z',
+  TikTok: 'M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z',
+  Threads: 'M12.186 24h-.007c-3.581-.024-6.334-1.205-8.184-3.509C2.35 18.44 1.5 15.586 1.472 12.01v-.017c.03-3.579.879-6.43 2.525-8.482C5.845 1.205 8.6.024 12.18 0h.014c2.746.02 5.043.725 6.826 2.098c1.677 1.29 2.858 3.13 3.509 5.467l-2.04.569c-1.104-3.96-3.898-5.984-8.304-6.015c-2.91.022-5.11.936-6.54 2.717C4.307 6.504 3.616 8.914 3.589 12c.027 3.086.718 5.496 2.057 7.164c1.43 1.783 3.631 2.698 6.54 2.717c2.623-.02 4.358-.631 5.8-2.045c1.647-1.613 1.618-3.593 1.09-4.798c-.31-.71-.873-1.3-1.634-1.75c-.192 1.352-.622 2.446-1.284 3.272c-.886 1.102-2.14 1.704-3.73 1.79c-1.202.065-2.361-.218-3.259-.801c-1.063-.689-1.685-1.74-1.752-2.964c-.065-1.19.408-2.285 1.33-3.082c.88-.76 2.119-1.207 3.583-1.291a14 14 0 0 1 3.02.142c-.126-.742-.375-1.332-.75-1.757c-.513-.586-1.308-.883-2.359-.89h-.029c-.844 0-1.992.232-2.721 1.32l-1.757-1.18c.98-1.454 2.568-2.256 4.478-2.256h.044c3.194.02 5.097 1.975 5.287 5.388q.163.07.321.142c1.49.7 2.58 1.761 3.154 3.07c.797 1.82.871 4.79-1.548 7.158c-1.85 1.81-4.094 2.628-7.277 2.65Zm1.003-11.69q-.362 0-.739.021c-1.836.103-2.98.946-2.916 2.143c.067 1.256 1.452 1.839 2.784 1.767c1.224-.065 2.818-.543 3.086-3.71a10.5 10.5 0 0 0-2.215-.221',
+  WhatsApp: 'M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z',
+};
+
+function SocialIcon({ name }) {
+  return <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true"><path d={SOCIAL_PATHS[name]} /></svg>;
+}
+
+function SocialLinks() {
+  return <div className="pw-footer-socials">{SOCIAL_LINKS.map(({ name, href }) => (
+    <a key={name} className={`pw-social-btn pw-social-${name.toLowerCase()}`} href={href} target="_blank" rel="noopener noreferrer" aria-label={`Arte Analytics on ${name}`} title={name}><SocialIcon name={name} /></a>
+  ))}</div>;
+}
+
 /* ─── Nav Links ────────────────────────────────────────────────────────────── */
 const NAV_ITEMS = [
   { id: 'home', label: 'Home' },
@@ -64,7 +100,7 @@ const PRICING_FAQS = [
   { q: 'Can I switch or upgrade plans later?', a: 'Yes! You can upgrade, downgrade, or switch billing cycles at any time from your Admin billing portal.' },
   { q: 'Is there a free trial available?', a: 'All plans come with a 14-day free trial. No credit card is required to sign up and get started.' },
   { q: 'Are all 9 department portals included?', a: 'Yes! Even our Starter plan gives your team access to the specific role-based dashboards needed for your business.' },
-  { q: 'How does data security and backup work?', a: 'Arte CRM uses enterprise-grade JWT authentication, role-based access control, and automated daily MongoDB backups.' }
+  { q: 'How does data security and backup work?', a: 'Arte Analytics CRM uses enterprise-grade JWT authentication, role-based access control, and automated daily MongoDB backups.' }
 ];
 
 /* ─── Hero Browser Mockup Graphic ────────────────────────────────────────────── */
@@ -88,8 +124,8 @@ function HeroDashboardMockup() {
         <div className="ref-mockup-body">
           <div className="ref-mockup-sidebar">
             <div className="ref-sidebar-logo">
-              <div className="ref-logo-icon">N</div>
-              <span>Arte CRM</span>
+              <img className="ref-logo-mark" src={BRAND_MARK} alt="Arte Analytics CRM" />
+              <BrandName />
             </div>
             <div className="ref-sidebar-menu">
               <div className="ref-sidebar-item active"><BarChart3 size={14} /> <span>Dashboard</span></div>
@@ -496,8 +532,8 @@ export default function PublicWebsite({ onNavigateToLogin, onNavigateToRegister 
       <nav className={`pw-nav ${scrolled ? 'scrolled' : ''}`}>
         <div className="pw-nav-inner">
           <div className="pw-nav-logo" onClick={() => setCurrentPage('home')}>
-            <div className="pw-logo-icon">N</div>
-            <span className="pw-logo-text">Arte CRM</span>
+            <img className="pw-logo-mark" src={BRAND_MARK} alt="Arte Analytics CRM" />
+            <BrandName className="pw-logo-text" />
           </div>
 
           <ul className="pw-nav-links">
@@ -602,7 +638,7 @@ export default function PublicWebsite({ onNavigateToLogin, onNavigateToRegister 
                   <span className="pw-blue-accent">Grow Smarter.</span>
                 </h1>
                 <p className="pw-hero-description">
-                  Arte CRM connects Sales, Marketing, HR, Accounting, Project Management, and executive leadership in one unified, role-based platform — with real-time data flowing between every department.
+                  <BrandName /> connects Sales, Marketing, HR, Accounting, Project Management, and executive leadership in one unified platform with role based access and real time data flowing between every department.
                 </p>
                 <div className="pw-hero-btn-row">
                   <button className="pw-btn-hero-solid" onClick={onNavigateToRegister}>
@@ -677,7 +713,7 @@ export default function PublicWebsite({ onNavigateToLogin, onNavigateToRegister 
           <section className="pw-section pw-bg-white">
             <div className="pw-container">
               <div className="pw-section-heading-center">
-                <h2>How <span className="pw-text-blue">Arte CRM</span> Works</h2>
+                <h2>How <BrandName /> Works</h2>
                 <p style={{ color: '#64748B', maxWidth: '600px', margin: '8px auto 0' }}>
                   Real-time connected CRM workflow spanning all major departments.
                 </p>
@@ -685,13 +721,12 @@ export default function PublicWebsite({ onNavigateToLogin, onNavigateToRegister 
               <div className="pw-wf-container">
                 {WORKFLOW_STEPS.map((s, idx) => (
                   <React.Fragment key={s.step}>
-                    <div className="pw-wf-item" onClick={() => setCurrentPage('how-it-works')} style={{ cursor: 'pointer' }}>
-                      <div className="pw-wf-badge-icon" style={{ background: '#EFF6FF', color: '#2563EB' }}>
+                    <a className="pw-wf-item" href="#how-it-works" onClick={(event) => { event.preventDefault(); setCurrentPage('how-it-works'); }}>
+                      <div className="pw-wf-badge-icon" style={{ background: '#EFF6FF', color: 'var(--arte-brand-blue)' }}>
                         <span style={{ fontSize: '0.9rem', fontWeight: 800 }}>{s.step}</span>
                       </div>
                       <div className="pw-wf-title">{s.title}</div>
-                      <div className="pw-wf-subtitle">{s.desc}</div>
-                    </div>
+                    </a>
                     {idx < WORKFLOW_STEPS.length - 1 && (
                       <div className="pw-wf-chevron"><ArrowRight size={18} color="#94A3B8" /></div>
                     )}
@@ -718,7 +753,7 @@ export default function PublicWebsite({ onNavigateToLogin, onNavigateToRegister 
               <span className="pw-page-badge"><Layers size={14} /> Platform Capabilities</span>
               <h1 className="pw-page-title">Powerful Features to Move Your Business Forward</h1>
               <p className="pw-page-subtitle">
-                Discover the end-to-end features built into Arte CRM. Every module is deeply connected to eliminate silos and drive maximum growth.
+                Discover the end-to-end features built into Arte Analytics CRM. Every module is deeply connected to eliminate silos and drive maximum growth.
               </p>
             </div>
           </div>
@@ -762,7 +797,7 @@ export default function PublicWebsite({ onNavigateToLogin, onNavigateToRegister 
               <span className="pw-page-badge"><Users size={14} /> Department Solutions</span>
               <h1 className="pw-page-title">Solutions for Every Department</h1>
               <p className="pw-page-subtitle">
-                Arte CRM provides role-tailored portals for every member of your organization, ensuring everyone has the exact tools they need.
+                Arte Analytics CRM provides role-tailored portals for every member of your organization, ensuring everyone has the exact tools they need.
               </p>
             </div>
           </div>
@@ -796,7 +831,7 @@ export default function PublicWebsite({ onNavigateToLogin, onNavigateToRegister 
           <div className="pw-page-header">
             <div className="pw-container">
               <span className="pw-page-badge"><Activity size={14} /> Connected Ecosystem</span>
-              <h1 className="pw-page-title">How Arte CRM Works</h1>
+              <h1 className="pw-page-title">How <BrandName /> Works</h1>
               <p className="pw-page-subtitle">
                 A seamless data lifecycle from lead generation to deal closing, invoice payment, and executive business analytics.
               </p>
@@ -821,7 +856,7 @@ export default function PublicWebsite({ onNavigateToLogin, onNavigateToRegister 
               <div style={{ marginTop: '48px', padding: '32px', background: '#F8FAFC', borderRadius: '16px', border: '1px solid #E2E8F0' }}>
                 <h3 style={{ fontSize: '1.2rem', fontWeight: 800, color: '#0F172A', marginBottom: '8px' }}>Connected HR, Project, and Employee Workflows</h3>
                 <p style={{ color: '#475569', lineHeight: 1.6 }}>
-                  Beyond Sales and Accounting, Arte CRM automatically synchronizes HR employee records, project manager deliverables, and employee task updates in real time — keeping your entire company aligned without redundant data entry.
+                  Beyond Sales and Accounting, Arte Analytics CRM automatically synchronizes HR employee records, project manager deliverables, and employee task updates in real time — keeping your entire company aligned without redundant data entry.
                 </p>
               </div>
             </div>
@@ -1000,7 +1035,7 @@ export default function PublicWebsite({ onNavigateToLogin, onNavigateToRegister 
           <div className="pw-page-header">
             <div className="pw-container">
               <span className="pw-page-badge"><Building2 size={14} /> Company Profile</span>
-              <h1 className="pw-page-title">About Arte CRM</h1>
+              <h1 className="pw-page-title">About <BrandName /></h1>
               <p className="pw-page-subtitle">
                 Connecting departments, empowering teams, and unifying modern business operations on one intelligent platform.
               </p>
@@ -1045,7 +1080,7 @@ export default function PublicWebsite({ onNavigateToLogin, onNavigateToRegister 
 
                 <div className="pw-about-highlight-box">
                   <div className="pw-badge-blue">Connected Architecture</div>
-                  <h3>Why Choose Arte CRM?</h3>
+                  <h3>Why Choose <BrandName />?</h3>
                   <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '12px', marginTop: '16px' }}>
                     <li style={{ display: 'flex', gap: '8px', fontSize: '0.9rem', color: '#334155' }}><CheckCircle size={16} color="#2563EB" /> Centralized MongoDB Database</li>
                     <li style={{ display: 'flex', gap: '8px', fontSize: '0.9rem', color: '#334155' }}><CheckCircle size={16} color="#2563EB" /> 9 Purpose-Built Department Portals</li>
@@ -1077,22 +1112,21 @@ export default function PublicWebsite({ onNavigateToLogin, onNavigateToRegister 
               <div className="pw-contact-wrapper">
                 <div className="pw-contact-info-col">
                   <h2>Contact Information</h2>
-                  <p>Our team is available Monday through Friday, 9:00 AM – 6:00 PM PKT.</p>
-
                   <div className="pw-contact-items-list">
                     <div className="pw-contact-item">
-                      <Phone size={18} color="#2563EB" /> <span>+92 300 1234567</span>
+                      <Phone size={18} color="var(--arte-brand-blue)" /> <a href="tel:+923360000283" target="_blank" rel="noopener noreferrer">Phone: +92 336 0000283</a>
                     </div>
                     <div className="pw-contact-item">
-                      <Mail size={18} color="#2563EB" /> <span>info@artecrm.com</span>
+                      <Mail size={18} color="var(--arte-brand-blue)" /> <a href="mailto:Sales@arteanalytics.com" target="_blank" rel="noopener noreferrer">Email: Sales@arteanalytics.com</a>
                     </div>
                     <div className="pw-contact-item">
-                      <MapPin size={18} color="#2563EB" /> <span>123 Business Street, Lahore, Pakistan</span>
+                      <MapPin size={18} color="var(--arte-brand-blue)" /> <span>Address: Office No,37, Malikabad shopping mall, 6th Rd, Satellite Block D Town, Rawalpindi, 46000</span>
                     </div>
                     <div className="pw-contact-item">
-                      <Clock size={18} color="#2563EB" /> <span>Monday – Friday (9:00 AM – 6:00 PM)</span>
+                      <SocialIcon name="WhatsApp" /> <a href="https://wa.me/923360000283" target="_blank" rel="noopener noreferrer">WhatsApp: +92 336 0000283</a>
                     </div>
                   </div>
+                  <SocialLinks />
                 </div>
 
                 <div className="pw-contact-form-col">
@@ -1195,7 +1229,7 @@ export default function PublicWebsite({ onNavigateToLogin, onNavigateToRegister 
             <div className="pw-container">
               <span className="pw-page-badge"><Play size={14} /> Live Demonstration</span>
               <h1 className="pw-page-title">Request a Demo</h1>
-              <p className="pw-page-subtitle">Experience a personalized walkthrough of Arte CRM tailored to your team's exact requirements.</p>
+              <p className="pw-page-subtitle">Experience a personalized walkthrough of Arte Analytics CRM tailored to your team's exact requirements.</p>
             </div>
           </div>
 
@@ -1295,31 +1329,25 @@ export default function PublicWebsite({ onNavigateToLogin, onNavigateToRegister 
           <div className="pw-footer-grid">
             <div className="pw-footer-col">
               <div className="pw-footer-logo">
-                <div className="pw-logo-icon">N</div>
-                <span>Arte CRM</span>
+                <img className="pw-logo-mark" src={BRAND_MARK} alt="Arte Analytics CRM" />
+                <BrandName />
               </div>
               <p className="pw-footer-desc">
                 All-in-one CRM solution to help your business grow smarter and faster.
               </p>
-              <div className="pw-footer-socials">
-                <div className="pw-social-btn">f</div>
-                <div className="pw-social-btn">t</div>
-                <div className="pw-social-btn">in</div>
-                <div className="pw-social-btn">yt</div>
-              </div>
             </div>
 
             <div className="pw-footer-col">
               <h4>Quick Links</h4>
               <ul className="pw-footer-ul">
-                <li onClick={() => setCurrentPage('home')}>Home</li>
-                <li onClick={() => setCurrentPage('features')}>Features</li>
-                <li onClick={() => setCurrentPage('solutions')}>Solutions</li>
-                <li onClick={() => setCurrentPage('how-it-works')}>How It Works</li>
-                <li onClick={() => setCurrentPage('pricing')}>Pricing</li>
-                <li onClick={() => setCurrentPage('careers')}>Careers</li>
-                <li onClick={() => setCurrentPage('about')}>About Us</li>
-                <li onClick={() => setCurrentPage('contact')}>Contact</li>
+                <li><button type="button" onClick={() => setCurrentPage('home')}>Home</button></li>
+                <li><button type="button" onClick={() => setCurrentPage('features')}>Features</button></li>
+                <li><button type="button" onClick={() => setCurrentPage('solutions')}>Solutions</button></li>
+                <li><button type="button" onClick={() => setCurrentPage('how-it-works')}>How It Works</button></li>
+                <li><button type="button" onClick={() => setCurrentPage('pricing')}>Pricing</button></li>
+                <li><button type="button" onClick={() => setCurrentPage('careers')}>Careers</button></li>
+                <li><button type="button" onClick={() => setCurrentPage('about')}>About Us</button></li>
+                <li><button type="button" onClick={() => setCurrentPage('contact')}>Contact</button></li>
               </ul>
             </div>
 
@@ -1327,7 +1355,7 @@ export default function PublicWebsite({ onNavigateToLogin, onNavigateToRegister 
               <h4>Solutions</h4>
               <ul className="pw-footer-ul">
                 {SOLUTIONS_DATA.slice(0, 6).map(s => (
-                  <li key={s.role} onClick={() => setCurrentPage('solutions')}>{s.role} Management</li>
+                  <li key={s.role}><button type="button" onClick={() => setCurrentPage('solutions')}>{s.role} Management</button></li>
                 ))}
               </ul>
             </div>
@@ -1335,24 +1363,29 @@ export default function PublicWebsite({ onNavigateToLogin, onNavigateToRegister 
             <div className="pw-footer-col">
               <h4>Contact Us</h4>
               <ul className="pw-footer-ul pw-contact-ul">
-                <li><Phone size={14} /> +92 300 1234567</li>
-                <li><Mail size={14} /> info@artecrm.com</li>
-                <li><MapPin size={14} /> 123 Business Street, Lahore, Pakistan</li>
+                <li><Phone size={18} /><a href="tel:+923360000283" target="_blank" rel="noopener noreferrer">Phone: +92 336 0000283</a></li>
+                <li><Mail size={18} /><a href="mailto:Sales@arteanalytics.com" target="_blank" rel="noopener noreferrer">Email: Sales@arteanalytics.com</a></li>
+                <li><MapPin size={18} /><span>Address: Office No,37, Malikabad shopping mall, 6th Rd, Satellite Block D Town, Rawalpindi, 46000</span></li>
+                <li><SocialIcon name="WhatsApp" /><a href="https://wa.me/923360000283" target="_blank" rel="noopener noreferrer">WhatsApp: +92 336 0000283</a></li>
               </ul>
             </div>
 
             <div className="pw-footer-col">
               <h4>Newsletter</h4>
               <p className="pw-newsletter-text">Subscribe to get updates and latest news.</p>
-              <form className="pw-newsletter-form" onSubmit={(e) => { e.preventDefault(); alert('Thank you for subscribing to Arte CRM newsletter!'); }}>
+              <form className="pw-newsletter-form" onSubmit={(e) => { e.preventDefault(); alert('Thank you for subscribing to Arte Analytics CRM newsletter!'); }}>
                 <input type="email" placeholder="Enter your email" required />
                 <button type="submit">Subscribe</button>
               </form>
             </div>
           </div>
 
+          <div className="pw-footer-social-row">
+            <SocialLinks />
+          </div>
+
           <div className="pw-footer-bottom">
-            <span>© 2026 Arte CRM. All rights reserved.</span>
+            <span>© {new Date().getFullYear()} Arte Analytics. All rights reserved.</span>
             <div className="pw-footer-legal-links">
               <span>Privacy Policy</span>
               <span>Terms of Service</span>
